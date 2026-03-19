@@ -1,35 +1,31 @@
 import styled from "styled-components";
 
 export const SocialMediaContainer = styled.div`
-      display: flex;
-      align-content: center;
-      gap: 0.5rem;
-
-      svg {
-            width: 16px;
-            height: 16px;
-
-            height: 12px;
-            width: 17px;
-            fill: ${(props) => props.theme.cloudColor};
-      }
+  display: flex;
+  align-content: center;
+  gap: 0.5rem;
 `;
 export const SocialMediaItem = styled.div`
-      color: ${(props) => props.theme.primary};
-      display: flex;
-      align-items: center;
+  display: flex;
+  align-items: center;
 
-      a {
-            display: flex;
-            align-content: center;
+  a {
+    color: ${(props) =>   props.color || props.theme.secondary};
+    display: flex;
+    align-content: center;
+    transition: all 0.3s ease;
 
-            svg {
-                  width: 16px;
-                  height: 16px;
+    &:hover {
+      color: ${(props) => props.hoverColor || props.theme.primary};
+    }
 
-                  height: 12px;
-                  width: 17px;
-                  fill: ${(props) => props.theme.primary};
-            }
-      }
+    svg {
+      width: 16px;
+      height: 16px;
+
+      height: 12px;
+      width: 17px;
+      fill: ${(props) => props.theme.primary};
+    }
+  }
 `;

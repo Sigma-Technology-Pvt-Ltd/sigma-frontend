@@ -11,22 +11,22 @@ import { Toaster } from "react-hot-toast";
 import { MetaContextProvider } from "../stores/MetaContext";
 
 function App() {
-      return (
-            <>
-                  <MetaContextProvider>
-                        <GlobalStyle />
-                        <ThemeProvider theme={lightTheme}>
-                              <Toaster position="top-right" />
-                              <Router>
-                                    <ScrollToTop />
-                                    <Header />
-                                    <PublicRouter />
-                                    <Footer />
-                              </Router>
-                        </ThemeProvider>
-                  </MetaContextProvider>
-            </>
-      );
+  return (
+    <>
+      <MetaContextProvider>
+        <GlobalStyle />
+        <ThemeProvider theme={lightTheme}>
+          <Toaster position="top-right" />
+          <Router>
+            <ScrollToTop />
+            <Header />
+            <PublicRouter />
+            <Footer />
+          </Router>
+        </ThemeProvider>
+      </MetaContextProvider>
+    </>
+  );
 }
 
 export default App;

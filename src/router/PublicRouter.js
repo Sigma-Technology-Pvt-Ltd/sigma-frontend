@@ -16,65 +16,47 @@ import Category from "../frontend/category";
 import ProductCategoryPage from "../frontend/product_category";
 
 const PublicRouter = () => {
-      return (
-            <>
-                  <Routes>
-                        <Route exact path="/" element={<Home />} />
+  return (
+    <>
+      <Routes>
+        <Route exact path="/" element={<Home />} />
 
-                        {/* about page  */}
-                        <Route path="/about-us" element={<AboutPage />} />
-                        <Route
-                              path="/associations"
-                              element={<Associations />}
-                        />
-                        <Route
-                              path="/sister-concern"
-                              element={<SisterConcern />}
-                        />
+        {/* about page  */}
+        <Route path="/about-us" element={<AboutPage />} />
+        <Route path="/associations" element={<Associations />} />
+        <Route path="/sister-concern" element={<SisterConcern />} />
 
-                        {/* contact page */}
-                        <Route path="contact-us" element={<ContactPage />} />
+        {/* contact page */}
+        <Route path="contact-us" element={<ContactPage />} />
 
-                        {/* blog page */}
-                        <Route path="blogs" element={<BlogPage />} />
-                        <Route path="/blogs/:blogId" element={<BlogDetail />} />
-                        <Route
-                              path="/category/:categoryId"
-                              element={<BlogCategory />}
-                        />
+        {/* blog page */}
+        <Route path="blogs" element={<BlogPage />} />
+        <Route path="/blogs/:blogId" element={<BlogDetail />} />
+        <Route path="/category/:categoryId" element={<BlogCategory />} />
 
-                        {/* faq page */}
-                        <Route path="faqs" element={<FaqPage />} />
+        {/* faq page */}
+        <Route path="faqs" element={<FaqPage />} />
 
-                        {/* faq page */}
-                        <Route
-                              path="/privacy-policy"
-                              element={<PrivacyPage />}
-                        />
-                        <Route
-                              path="/terms-and-condition"
-                              element={<PrivacyPage />}
-                        />
+        {/* faq page */}
+        <Route path="/privacy-policy" element={<PrivacyPage />} />
+        <Route path="/terms-and-condition" element={<PrivacyPage />} />
 
-                        {/* product page route */}
-                        <Route path="/products" element={<ProductPage />} />
+        {/* product page route */}
+        <Route path="/products" element={<ProductPage />} />
 
-                        <Route
-                              path="/product-category/:categoryId"
-                              element={<ProductCategoryPage />}
-                        />
-                        <Route
-                              path="/product-category/:categoryId/products"
-                              element={<Category />}
-                        />
+        <Route
+          path="/product-category/:categoryId"
+          element={<ProductCategoryPage />}
+        />
+        <Route
+          path="/product-category/:categoryId/products"
+          element={<Category />}
+        />
 
-                        <Route
-                              path="/product/:productId"
-                              element={<ProductDetail />}
-                        />
-                  </Routes>
-            </>
-      );
+        <Route path="/product/:productId" element={<ProductDetail />} />
+      </Routes>
+    </>
+  );
 };
 
 export default PublicRouter;
