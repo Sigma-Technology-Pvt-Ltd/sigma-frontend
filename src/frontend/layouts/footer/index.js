@@ -86,9 +86,9 @@ const Footer = () => {
                             <Link to="tel:+9779801113668" className="d-block">
                               +977 9801113668
                             </Link>
-                            <Link to="tel:+9779801913945" className="d-block">
+                            {/* <Link to="tel:+9779801913945" className="d-block">
                               +977 9801913945
-                            </Link>
+                            </Link> */}
                           </div>
                         </li>
                         <li className="footer__info--item footer__item">
@@ -102,12 +102,12 @@ const Footer = () => {
                             >
                               info@sigmatechnologies.com.np
                             </Link>
-                            <Link
+                            {/* <Link
                               to="mailto:atulsigtia@sigmatechnologies.com.np"
                               className="d-block"
                             >
                               atulsigtia@sigmatechnologies.com.np
-                            </Link>
+                            </Link> */}
                           </div>
                         </li>
                         <li className="footer__info--item footer__item align-items-center">
@@ -209,12 +209,12 @@ const Footer = () => {
                             >
                               info@sigmatechnologies.com.np
                             </Link>
-                            <Link
+                            {/* <Link
                               to="mailto:atulsigtia@sigmatechnologies.com.np"
                               className="d-block"
                             >
                               atulsigtia@sigmatechnologies.com.np
-                            </Link>
+                            </Link> */}
                           </div>
                         </li>
                         <li className="footer__info--item footer__item align-items-center">
