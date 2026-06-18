@@ -11,9 +11,9 @@ const contacts = [
                   {
                         title: "+977 9801113668",
                   },
-                  {
-                        title: "+977 9801913945",
-                  },
+                  // {
+                  //       title: "+977 9801913945",
+                  // },
             ],
       },
       {
@@ -24,9 +24,9 @@ const contacts = [
                   {
                         title: "info@sigmatechnologies.com.np",
                   },
-                  {
-                        title: "atulsigtia@sigmatechnologies.com.np",
-                  },
+                  // {
+                  //       title: "atulsigtia@sigmatechnologies.com.np",
+                  // },
             ],
       },
       {
