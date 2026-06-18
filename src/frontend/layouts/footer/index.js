@@ -190,12 +190,12 @@ const Footer = () => {
                             phone_in_talk
                           </span>
                           <div className="footer__info--composite">
-                            <Link to="tel:+9779801913945" className="d-block">
+                            {/* <Link to="tel:+9779801913945" className="d-block">
                               +977 9801913945
+                            </Link> */}
+                            <Link to="tel:+9779801113668" className="d-block">
+                              +977 9801113668
                             </Link>
-                            {/* <Link to="tel:+9779801113668">
-                                             +977 9801113668
-                                          </Link> */}
                           </div>
                         </li>
                         <li className="footer__info--item footer__item">
