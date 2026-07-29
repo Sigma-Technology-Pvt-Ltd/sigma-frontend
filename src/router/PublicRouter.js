@@ -14,6 +14,9 @@ import ProductPage from "../frontend/product";
 import BlogCategory from "../frontend/BlogCategory";
 import Category from "../frontend/category";
 import ProductCategoryPage from "../frontend/product_category";
+import PreviewPage from "../frontend/PreviewPage";
+import BlogPreviewPage from "../frontend/PreviewPage/BlogPreview";
+import CareerPreviewPage from "../frontend/PreviewPage/CareerPreview";
 
 const PublicRouter = () => {
   return (
@@ -54,6 +57,11 @@ const PublicRouter = () => {
         />
 
         <Route path="/product/:productId" element={<ProductDetail />} />
+
+        {/* Admin Live Preview Routes */}
+        <Route path="/preview/:previewId" element={<PreviewPage />} />
+        <Route path="/preview/blog/:previewId" element={<BlogPreviewPage />} />
+        <Route path="/preview/career/:previewId" element={<CareerPreviewPage />} />
       </Routes>
     </>
   );

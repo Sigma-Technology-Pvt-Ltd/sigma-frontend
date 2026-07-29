@@ -89,7 +89,7 @@ export const productCategory = [
       {
             id: 6,
             title: "Water Filtration",
-            slug: "water-filtration",
+            slug: "water-purifier-and-dispensers",
       },
       {
             id: 7,
