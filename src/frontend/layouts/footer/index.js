@@ -242,12 +242,6 @@ const Footer = () => {
                     {currentYear}{" "}
                     <Link to={"#"}>Sigma Technologies Pvt. Ltd.</Link>
                   </div>
-                  <div className="footer__credit">
-                    Powered by:
-                    <Link to="https://infinityinfosys.com/" target="_blank">
-                      Infinity Infosys
-                    </Link>
-                  </div>
                 </div>
               </Container>
             </div>
