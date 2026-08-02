@@ -47,7 +47,7 @@ const MobileMenuItem = ({ categories, setShow, categoryList }) => {
                         <ul>
                               {categories.map((cat, index) =>
                                     cat.category?.length > 0 ? (
-                                          <li>
+                                          <li key={cat.id || cat.slug || index}>
                                                 {cat?.title === "About" ? (
                                                       <span>{cat.title}</span>
                                                 ) : (

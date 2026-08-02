@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import {
   AboutBox,
   BannerBox,
@@ -13,7 +13,9 @@ import MetaContext from "../../stores/MetaContext";
 
 const Home = () => {
   const metaCtx = useContext(MetaContext);
-  metaCtx.handleSlug("home-page");
+  useEffect(() => {
+    metaCtx.handleSlug("home-page");
+  }, []);
 
   return (
     <>

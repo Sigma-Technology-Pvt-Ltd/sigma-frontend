@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import BreadCrumBox from "../../components/common/BreadCrumbBox";
 
 import AboutBox from "../Home/components/AboutBox";
@@ -6,7 +6,9 @@ import MetaContext from "../../stores/MetaContext";
 
 const AboutPage = () => {
       const metaCtx = useContext(MetaContext);
-      metaCtx.handleSlug("about-us");
+      useEffect(() => {
+            metaCtx.handleSlug("about-us");
+      }, []);
 
       return (
             <>

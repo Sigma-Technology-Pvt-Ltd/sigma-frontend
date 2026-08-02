@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import BreadCrumBox from "../../components/common/BreadCrumbBox";
 import { FaqAccordionContainer, FaqContainer } from "./styles";
 import { Col, Container, Row } from "react-bootstrap";
@@ -7,7 +7,9 @@ import MetaContext from "../../stores/MetaContext";
 
 const FaqPage = () => {
       const metaCtx = useContext(MetaContext);
-      metaCtx.handleSlug("faqs");
+      useEffect(() => {
+            metaCtx.handleSlug("faqs");
+      }, []);
 
       return (
             <>

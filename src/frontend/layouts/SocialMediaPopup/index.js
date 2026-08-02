@@ -39,7 +39,7 @@ function SocialMediaPopup() {
                               color="#0084ff"
                               id="getbutton-facebook"
                               data-component-name="BaseButton"
-                              class="q8c6tt-0 jBfflV"
+                              className="q8c6tt-0 jBfflV"
                         >
                               <MessengerIcon />
                         </MessenegerLink>

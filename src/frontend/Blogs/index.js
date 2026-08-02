@@ -10,7 +10,9 @@ import MetaContext from "../../stores/MetaContext";
 
 const BlogPage = () => {
       const metaCtx = useContext(MetaContext);
-      metaCtx.handleSlug("blogs");
+      useEffect(() => {
+            metaCtx.handleSlug("blogs");
+      }, []);
 
       const [blogs, setBlogs] = useState([]);
       const [loading, setLoading] = useState();
@@ -45,10 +47,9 @@ const BlogPage = () => {
                               {!loading ? (
                                     blogs?.length > 0 ? (
                                           blogs?.map((blog, index) => (
-                                                <Col lg={4}>
+                                                <Col lg={4} key={blog.id || index}>
                                                       <BlogItemBox
                                                             blog={blog}
-                                                            key={index}
                                                       />
                                                 </Col>
                                           ))

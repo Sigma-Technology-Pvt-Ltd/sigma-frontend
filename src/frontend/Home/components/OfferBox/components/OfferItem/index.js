@@ -16,14 +16,14 @@ const OfferItem = ({ image, slug, title, position, slogan, order }) => {
         style={{ order: order }}
       >
         <OfferItemContainer order={order}>
-          <OfferContent text="center">
+          <OfferContent $text="center">
             <h3 className="text-1 w-100">{title}</h3>
             {slogan && <p>{slogan}</p>}
             <ShopButton slug={slug} />
           </OfferContent>
           <CustomCard
             className={position === "left" ? "left" : "center"}
-            backgroundImage={image}
+            $backgroundImage={image}
           >
             <OfferImage className="d-flex w-100 align-items-center justify-content-center h-100">
               <img src="/images/img/offer/Vector.png" alt={title} />

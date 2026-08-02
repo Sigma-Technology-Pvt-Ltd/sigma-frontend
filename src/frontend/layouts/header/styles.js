@@ -85,7 +85,7 @@ export const NavigationAdditional = styled.div`
 // dropdown css
 export const DropDownContainer = styled.div``;
 
-export const DropDownList = styled.div`
+export const DropDownList = styled.ul`
   margin-bottom: 0;
   list-style: none;
   padding: 0;

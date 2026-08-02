@@ -43,11 +43,7 @@ const ProductFilter = ({ setList, list, category, setSort, sort }) => {
                                           <FormSelect
                                                 value={sort}
                                                 onChange={handleChange}
-                                                displayEmpty
-                                                inputProps={{
-                                                      "aria-label":
-                                                            "Without label",
-                                                }}
+                                                aria-label="Without label"
                                           >
                                                 <option value="">
                                                       <em>Default Sorting</em>

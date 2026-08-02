@@ -23,7 +23,7 @@ export const OfferContent = styled.div`
       transform: translate(-50%, -50%);
       width: 100%;
       z-index: 3;
-      text-align: ${(props) => (props.text === "center" ? "center" : "left")};
+      text-align: ${(props) => (props.$text === "center" || props.text === "center" ? "center" : "left")};
       align-items: center;
       h3 {
             font-family: "Brushline", Sans-serif;
@@ -55,7 +55,7 @@ export const OfferItemContainer = styled.div`
 
 export const CustomCard = styled.div`
       background-image: ${(props) =>
-            props.backgroundImage ? `url(${props.backgroundImage})` : "none"};
+            props.$backgroundImage || props.backgroundImage ? `url(${props.$backgroundImage || props.backgroundImage})` : "none"};
       background-size: cover;
       background-repeat: no-repeat;
       background-position: 50% 100%;

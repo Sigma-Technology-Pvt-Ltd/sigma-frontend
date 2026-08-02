@@ -3,6 +3,7 @@ import { OfferBoxContainer } from "./styles";
 import { Col, Container, Row } from "react-bootstrap";
 import OfferItem from "./components/OfferItem";
 import axios from "axios";
+import { getBackendUrl } from "../../../../utils/getBackendUrl";
 
 const OfferBox = () => {
   const [loading, setLoading] = useState(false);
@@ -11,7 +12,7 @@ const OfferBox = () => {
   const loadData = async () => {
     setLoading(true);
     await axios
-      .get(`${process.env.REACT_APP_SECRET_KEY}/api/banners/offer`, {
+      .get(`${getBackendUrl()}/api/banners/offer`, {
         headers: {
           apikey: process.env.REACT_APP_API_KEY,
         },
@@ -37,13 +38,13 @@ const OfferBox = () => {
         <Container>
           <Row className="align-items-center">
             {offers?.map((item, index) => (
-              <>
+              <React.Fragment key={item.id || index}>
                 {item.type === "Middle Offer Banner" && (
                   <OfferItem
                     slug={item.link}
                     title={item.title}
                     image={item.image}
-                    postion="center"
+                    position="center"
                     slogan={item.subtitle}
                     order={2}
                   />
@@ -57,7 +58,7 @@ const OfferBox = () => {
                     position="left"
                   />
                 )}
-              </>
+              </React.Fragment>
             ))}
           </Row>
         </Container>

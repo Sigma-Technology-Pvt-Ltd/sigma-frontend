@@ -414,7 +414,7 @@ const ProductDetail = () => {
                                                       <Accordion.Body>
                                                             <p
                                                                   dangerouslySetInnerHTML={{
-                                                                        __html: product?.installation,
+                                                                        __html: product?.specification,
                                                                   }}
                                                             ></p>
                                                       </Accordion.Body>
@@ -438,10 +438,13 @@ const ProductDetail = () => {
                                                                                           item.slug
                                                                                     )
                                                                               }
-                                                                              className="d-block border-bottom pb-2 pt-2"
+                                                                              className="d-flex align-items-center border-bottom pb-2 pt-2"
+                                                                              style={{ cursor: 'pointer', color: '#dc3545' }}
                                                                         >
-                                                                              Download
-                                                                              File
+                                                                              <i className="bx bxs-file-pdf fs-4 me-2"></i>
+                                                                              <span className="text-dark">
+                                                                                    {item.title || item.original_filename || "Download File"}
+                                                                              </span>
                                                                         </a>
                                                                   )
                                                             )}

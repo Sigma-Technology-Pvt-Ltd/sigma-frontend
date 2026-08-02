@@ -18,10 +18,10 @@ export const CommonButtonContainer = styled.div`
       button {
             display: inline-flex;
             background-color: ${(props) =>
-                  props.background ? props.background : props.theme.primary};
+                  props.$background || props.background || props.theme.primary};
             border-color: #5e6fb5;
             color: ${(props) =>
-                  props.color ? props.color : props.theme.white};
+                  props.$color || props.color || props.theme.white};
             padding: 11px 15px;
             font-weight: bold;
             border-radius: 10px;

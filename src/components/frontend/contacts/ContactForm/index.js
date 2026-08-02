@@ -32,7 +32,7 @@ const inputs = [
             placeholder: "Phone Number",
             errorMessage: "",
             required: true,
-            pattern: "(+977)?[9][6-9]d{8}",
+            pattern: "(\\+977)?[9][6-9]\\d{8}",
       },
       {
             id: 4,
@@ -147,6 +147,7 @@ const ContactForm = () => {
                                                 <Form.Group
                                                       className="mb-3 col-lg-12"
                                                       controlId="formBasicEmail"
+                                                      key={input.id}
                                                 >
                                                       <FormInput
                                                             {...input}

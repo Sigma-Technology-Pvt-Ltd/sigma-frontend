@@ -1,4 +1,4 @@
-import React, { memo, useContext } from "react";
+import React, { memo, useContext, useEffect } from "react";
 import BreadCrumBox from "../../components/common/BreadCrumbBox";
 import { ContactPageContainer, ContactPageWrapper } from "./styles";
 import { Col, Container, Row } from "react-bootstrap";
@@ -11,7 +11,9 @@ import MetaContext from "../../stores/MetaContext";
 
 const ContactPage = memo(() => {
       const metaCtx = useContext(MetaContext);
-      metaCtx.handleSlug("contact-us");
+      useEffect(() => {
+            metaCtx.handleSlug("contact-us");
+      }, []);
 
       return (
             <>

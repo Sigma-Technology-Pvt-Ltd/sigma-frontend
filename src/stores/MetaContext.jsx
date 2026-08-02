@@ -15,8 +15,10 @@ export const MetaContextProvider = (props) => {
   const [meta, setMeta] = useState([]);
   const [slug, setSlug] = useState("");
 
-  const handleSlug = (slug) => {
-    setSlug(slug);
+  const location = useLocation();
+
+  const handleSlug = (newSlug) => {
+    setSlug((prev) => (prev !== newSlug ? newSlug : prev));
   };
 
   const loadData = async () => {
@@ -42,7 +44,7 @@ export const MetaContextProvider = (props) => {
 
   useEffect(() => {
     loadData();
-  }, [useLocation.location, slug]);
+  }, [location.pathname, slug]);
 
   const context = {
     handleSlug: handleSlug,

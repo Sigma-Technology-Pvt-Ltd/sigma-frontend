@@ -15,7 +15,9 @@ import MetaContext from "../../stores/MetaContext";
 
 const Associations = () => {
       const metaCtx = useContext(MetaContext);
-      metaCtx.handleSlug("associations");
+      useEffect(() => {
+            metaCtx.handleSlug("associations");
+      }, []);
 
       const [loading, setLoading] = useState(true);
       const [associations, setAssociations] = useState([]);

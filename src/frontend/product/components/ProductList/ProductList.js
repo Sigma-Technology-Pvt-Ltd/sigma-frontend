@@ -11,6 +11,7 @@ const ProductList = ({ products, list }) => {
                   >
                         {products?.map((item, index) => (
                               <Col
+                                    key={item.id || item.slug || index}
                                     lg={3}
                                     md={4}
                                     sm={6}
@@ -19,7 +20,6 @@ const ProductList = ({ products, list }) => {
                               >
                                     <ProductItem
                                           data={item}
-                                          key={index}
                                           list={list}
                                     />
                               </Col>

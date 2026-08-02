@@ -57,7 +57,7 @@ export const BannerSection = styled.section`
   }
 `;
 export const ShopButtonContainer = styled.div`
-  margin-top: ${(props) => props.marginTop || "20px"};
+  margin-top: ${(props) => props.$marginTop || props.marginTop || "20px"};
   a {
     position: relative;
     font-size: 16px;
@@ -75,7 +75,9 @@ export const ShopButtonContainer = styled.div`
   }
 `;
 
-export const BannerContent = styled.div`
+export const BannerContent = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "leftValue" && prop !== "topValue",
+})`
   position: absolute;
   z-index: 10;
   top: ${(props) => (props.topValue ? props.topValue : "50%")};

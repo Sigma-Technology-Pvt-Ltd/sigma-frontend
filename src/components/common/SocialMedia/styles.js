@@ -10,13 +10,13 @@ export const SocialMediaItem = styled.div`
   align-items: center;
 
   a {
-    color: ${(props) =>   props.color || props.theme.secondary};
+    color: ${(props) => props.$color || props.color || props.theme.secondary};
     display: flex;
     align-content: center;
     transition: all 0.3s ease;
 
     &:hover {
-      color: ${(props) => props.hoverColor || props.theme.primary};
+      color: ${(props) => props.$hoverColor || props.hoverColor || props.theme.primary};
     }
 
     svg {

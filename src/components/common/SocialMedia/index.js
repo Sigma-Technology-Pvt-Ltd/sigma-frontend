@@ -42,12 +42,12 @@ const socialMedia = [
   },
 ];
 
-const SocialMedia = ({color, hoverColor}) => {
+const SocialMedia = ({ color, hoverColor }) => {
   return (
     <>
       <SocialMediaContainer>
         {socialMedia?.map((item, index) => (
-          <SocialMediaItem key={index} color={color} hoverColor ={hoverColor}>
+          <SocialMediaItem key={item.id || index} $color={color} $hoverColor={hoverColor}>
             <Link to={item.link}>{item.icon}</Link>
           </SocialMediaItem>
         ))}

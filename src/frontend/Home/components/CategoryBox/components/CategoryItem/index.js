@@ -4,7 +4,6 @@ import {
   CategoryItemContent,
   CategoryItemIcon,
 } from "./styles";
-import { Link } from "react-router-dom";
 
 const CategoryItem = ({ category }) => {
   let linkUrl;
@@ -34,13 +33,9 @@ const CategoryItem = ({ category }) => {
             }}
           />
           <CategoryItemContent>
-            <Link
-              href={linkUrl}
-              onClick={(e) => handleExternalLinkClick(e, linkUrl)}
-              className="text-center pb-4"
-            >
+            <div className="text-center pb-4">
               <h5>{category?.subtitle || category?.title}</h5>
-            </Link>
+            </div>
           </CategoryItemContent>
         </CategoryItemContainer>
       ) : (
@@ -51,9 +46,9 @@ const CategoryItem = ({ category }) => {
             }}
           />
           <CategoryItemContent>
-            <Link to={linkUrl} className="text-center pb-4">
+            <div className="text-center pb-4">
               <h5>{category?.subtitle || category?.title}</h5>
-            </Link>
+            </div>
           </CategoryItemContent>
         </CategoryItemContainer>
       )}

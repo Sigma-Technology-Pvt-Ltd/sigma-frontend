@@ -12,20 +12,18 @@ import { MetaContextProvider } from "../stores/MetaContext";
 
 function App() {
   return (
-    <>
+    <Router>
       <MetaContextProvider>
         <GlobalStyle />
         <ThemeProvider theme={lightTheme}>
           <Toaster position="top-right" />
-          <Router>
-            <ScrollToTop />
-            <Header />
-            <PublicRouter />
-            <Footer />
-          </Router>
+          <ScrollToTop />
+          <Header />
+          <PublicRouter />
+          <Footer />
         </ThemeProvider>
       </MetaContextProvider>
-    </>
+    </Router>
   );
 }
 

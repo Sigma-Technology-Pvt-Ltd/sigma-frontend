@@ -17,7 +17,9 @@ import MetaContext from "../../stores/MetaContext";
 
 const SisterConcern = () => {
       const metaCtx = useContext(MetaContext);
-      metaCtx.handleSlug("sister-concern");
+      useEffect(() => {
+            metaCtx.handleSlug("sister-concern");
+      }, []);
 
       const [concerns, setConcerns] = useState([]);
       const [loading, setLoading] = useState(true);

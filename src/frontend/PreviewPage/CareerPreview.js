@@ -4,7 +4,9 @@ import { useParams, Link } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import { Helmet } from "react-helmet";
 
-const BACKEND_URL = process.env.REACT_APP_SECRET_KEY || 'http://localhost:3000';
+import { getBackendUrl } from "../../utils/getBackendUrl";
+
+const BACKEND_URL = getBackendUrl();
 
 const PREVIEW_BANNER_STYLE = {
   position: "fixed", top: 0, left: 0, right: 0, zIndex: 9999,
@@ -30,7 +32,7 @@ const CareerPreviewPage = () => {
   useEffect(() => {
     const fetchPreview = async () => {
       try {
-        const res = await axios.get(`${BACKEND_URL}/admin/preview/${previewId}`);
+        const res = await axios.get(`${BACKEND_URL}/api/admin/preview/${previewId}`);
         if (res.data.result === "success") {
           setCareer(res.data.data);
         } else {

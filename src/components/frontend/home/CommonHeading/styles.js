@@ -9,8 +9,7 @@ export const CommonHeadingContainer = styled.div`
             letter-spacing: 0.16em;
             font-size: 16px;
             margin-bottom: 1rem;
-            text-align: ${(props) => (props.align ? props.align : "left")};
-            ${"" /* font-size: 0.875rem; */}
+            text-align: ${(props) => (props.$align || props.align ? (props.$align || props.align) : "left")};
             font-family: ${(props) => props.theme.primaryFontBold};
       }
       h2 {
@@ -20,7 +19,7 @@ export const CommonHeadingContainer = styled.div`
             color: #212529;
             font-family: ${(props) => props.theme.primaryFont};
             text-transform: capitalize;
-            width: ${(props) => (props.width ? props.width : "100%")};
+            width: ${(props) => (props.$width || props.width ? (props.$width || props.width) : "100%")};
       }
 
       @media screen and (max-width: 568px) {

@@ -56,11 +56,13 @@ const PrivacyPage = () => {
       const policyRef = useRef(null);
 
       const metaCtx = useContext(MetaContext);
-      metaCtx.handleSlug(
-            location.pathname === "/terms-and-condition"
-                  ? "terms-and-condition"
-                  : "privacy-policy"
-      );
+      useEffect(() => {
+            metaCtx.handleSlug(
+                  location.pathname === "/terms-and-condition"
+                        ? "terms-and-condition"
+                        : "privacy-policy"
+            );
+      }, [location.pathname]);
 
       useEffect(() => {
             if (

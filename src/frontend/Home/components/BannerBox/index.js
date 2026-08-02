@@ -9,6 +9,7 @@ import {
 import { Col, Row } from "react-bootstrap";
 import ShopButton from "../../../../components/frontend/home/ShopButton";
 import axios from "axios";
+import { getBackendUrl } from "../../../../utils/getBackendUrl";
 
 const BannerBox = () => {
       const [loading, setLoading] = useState(false);
@@ -17,7 +18,7 @@ const BannerBox = () => {
       const loadData = async () => {
             setLoading(true);
             await axios
-                  .get(`${process.env.REACT_APP_SECRET_KEY}/api/banners`, {
+                  .get(`${getBackendUrl()}/api/banners`, {
                         headers: {
                               apikey: process.env.REACT_APP_API_KEY,
                         },
@@ -49,7 +50,7 @@ const BannerBox = () => {
                                                               "Left Banner Design" && (
                                                               <Col
                                                                     lg={6}
-                                                                    key={index}
+                                                                    key={item.id || index}
                                                               >
                                                                     <BannerContainer>
                                                                           <BannerContent>
@@ -91,24 +92,14 @@ const BannerBox = () => {
                                     <Col lg={6}>
                                           <Row className="g-4">
                                                 {banners.map((item, index) => (
-                                                      <>
+                                                      <React.Fragment key={item.id || `middle-${index}`}>
                                                             {item?.type ===
                                                                   "Middle Banner Design" && (
                                                                   <Col
                                                                         lg={6}
-                                                                        key={
-                                                                              index
-                                                                        }
                                                                   >
                                                                         <BannerContainer>
                                                                               <BannerContent>
-                                                                                    {/* {item?.title && (
-                                                                                          <h3>
-                                                                                                {
-                                                                                                      item.title
-                                                                                                }
-                                                                                          </h3>
-                                                                                    )} */}
                                                                                     <ShopButton
                                                                                           slug={
                                                                                                 item.link
@@ -129,34 +120,17 @@ const BannerBox = () => {
                                                                         </BannerContainer>
                                                                   </Col>
                                                             )}
-                                                      </>
+                                                      </React.Fragment>
                                                 ))}
                                                 {banners?.map((item, index) => (
-                                                      <>
+                                                      <React.Fragment key={item.id || `bottom-${index}`}>
                                                             {item?.type ===
                                                                   "Bottom Banner Design" && (
                                                                   <Col
                                                                         lg={12}
-                                                                        key={
-                                                                              index
-                                                                        }
                                                                   >
                                                                         <BannerContainer>
                                                                               <BannerContent leftValue="50px">
-                                                                                    {/* {item?.title && (
-                                                                                          <h3>
-                                                                                                {
-                                                                                                      item.title
-                                                                                                }
-                                                                                          </h3>
-                                                                                    )}
-                                                                                    {item?.tagProduct && (
-                                                                                          <h3>
-                                                                                                {
-                                                                                                      item.subtitle
-                                                                                                }
-                                                                                          </h3>
-                                                                                    )} */}
                                                                                     <ShopButton
                                                                                           slug={
                                                                                                 item.link
@@ -177,7 +151,7 @@ const BannerBox = () => {
                                                                         </BannerContainer>
                                                                   </Col>
                                                             )}
-                                                      </>
+                                                      </React.Fragment>
                                                 ))}
                                           </Row>
                                     </Col>

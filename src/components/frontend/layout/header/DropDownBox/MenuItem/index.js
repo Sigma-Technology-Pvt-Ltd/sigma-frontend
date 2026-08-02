@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const MenuItem = ({ slug, title, cat, subCategory, children }) => {
+const MenuItem = ({ slug, title, cat, subCategory }) => {
       let linkUrl;
 
       if (cat?.link) {
@@ -29,21 +29,18 @@ const MenuItem = ({ slug, title, cat, subCategory, children }) => {
                               {title}
                         </Link>
                   ) : (
-                        <>
-                              <Link
-                                    to={linkUrl}
-                                    className="d-flex align-items-start"
-                                    style={{ gap: "5px" }}
-                              >
-                                    {subCategory && (
-                                          <div>
-                                                <i className="bx bx-chevron-right"></i>
-                                          </div>
-                                    )}
-                                    {title}
-                              </Link>
-                              {children}
-                        </>
+                        <Link
+                              to={linkUrl}
+                              className="d-flex align-items-start"
+                              style={{ gap: "5px" }}
+                        >
+                              {subCategory && (
+                                    <div>
+                                          <i className="bx bx-chevron-right"></i>
+                                    </div>
+                              )}
+                              {title}
+                        </Link>
                   )}
             </>
       );

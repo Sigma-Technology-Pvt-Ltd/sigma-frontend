@@ -14,7 +14,7 @@ const CommonButton = ({
 }) => {
       return (
             <>
-                  <CommonButtonContainer background={background} color={color}>
+                  <CommonButtonContainer $background={background} $color={color}>
                         {button ? (
                               <Button
                                     type={type}

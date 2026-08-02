@@ -18,6 +18,7 @@ import {
 import MobileMenu from "./components/MobileMenu";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { getBackendUrl } from "../../../../../utils/getBackendUrl";
 
 const navLink = [
       {
@@ -58,7 +59,7 @@ const Navigation = ({ isSticky }) => {
             setLoading(true);
             await axios
                   .get(
-                        `${process.env.REACT_APP_SECRET_KEY}/api/categories/navigation/lists`,
+                        `${getBackendUrl()}/api/categories/navigation/lists`,
                         {
                               headers: {
                                     apikey: process.env.REACT_APP_API_KEY,
@@ -79,7 +80,6 @@ const Navigation = ({ isSticky }) => {
       useEffect(() => {
             loadData();
       }, []);
-      console.log(categories);
 
       return (
             <>
@@ -101,6 +101,7 @@ const Navigation = ({ isSticky }) => {
                                     <NavigationMenu className="list-inline mb-0">
                                           {navLink?.map((item, index) => (
                                                 <MenuItem
+                                                      key={item.id || index}
                                                       title={item.title}
                                                       slug={item.slug}
                                                       category={item.category}

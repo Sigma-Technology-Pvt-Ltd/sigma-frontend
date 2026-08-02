@@ -44,9 +44,11 @@ const ProductPage = () => {
             setLoading(false);
       };
 
+      const location = useLocation();
+
       useEffect(() => {
             loadData();
-      }, [useLocation().pathname]);
+      }, [location.pathname]);
 
       return (
             <>
