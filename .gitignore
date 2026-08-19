@@ -24,3 +24,13 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Test and Maintenance scripts
+test_*.js
+cleanup_*.js
+clear_*.js
+seed_*.js
+run_*.js
+temp_*
+tmp_*
+*.local
