@@ -83,15 +83,11 @@ export const NavigationAdditional = styled.div`
 `;
 
 // dropdown css
-export const DropDownContainer = styled.div``;
-
-export const DropDownList = styled.ul`
-  margin-bottom: 0;
-  list-style: none;
-  padding: 0;
-  position: relative;
-
+export const DropDownContainer = styled.div`
   .define {
+    width: 860px;
+    padding: 20px 25px;
+
     ul {
       padding: 0;
       grid-gap: 0;
@@ -99,6 +95,7 @@ export const DropDownList = styled.ul`
       flex-wrap: wrap;
       margin: 0;
       margin-bottom: 1rem;
+      list-style: none;
 
       li {
         display: inline-block;
@@ -118,6 +115,8 @@ export const DropDownList = styled.ul`
         }
 
         ul {
+          padding-left: 0;
+          list-style: none;
           li {
             min-width: 100%;
 
@@ -159,6 +158,13 @@ export const DropDownList = styled.ul`
       }
     }
   }
+`;
+
+export const DropDownList = styled.ul`
+  margin-bottom: 0;
+  list-style: none;
+  padding: 0;
+  position: relative;
 `;
 
 export const DropDownListItem = styled.li``;
