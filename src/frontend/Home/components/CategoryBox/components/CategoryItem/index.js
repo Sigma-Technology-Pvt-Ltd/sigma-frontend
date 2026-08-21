@@ -1,4 +1,5 @@
 import React from "react";
+import DOMPurify from "dompurify";
 import {
   CategoryItemContainer,
   CategoryItemContent,
@@ -29,7 +30,7 @@ const CategoryItem = ({ category }) => {
         >
           <CategoryItemIcon
             dangerouslySetInnerHTML={{
-              __html: category?.icon,
+              __html: DOMPurify.sanitize(category?.icon || ''),
             }}
           />
           <CategoryItemContent>
@@ -42,7 +43,7 @@ const CategoryItem = ({ category }) => {
         <CategoryItemContainer to={linkUrl}>
           <CategoryItemIcon
             dangerouslySetInnerHTML={{
-              __html: category?.icon,
+              __html: DOMPurify.sanitize(category?.icon || ''),
             }}
           />
           <CategoryItemContent>

@@ -1,4 +1,5 @@
 import React, { memo, useEffect, useState } from "react";
+import DOMPurify from "dompurify";
 import BreadCrumBox from "../../components/common/BreadCrumbBox";
 import {
       BlogCategory,
@@ -226,7 +227,7 @@ const BlogDetail = memo(() => {
                                                 {!loading ? (
                                                       <BlogDetailDescription
                                                             dangerouslySetInnerHTML={{
-                                                                  __html: blog.description,
+                                                                  __html: DOMPurify.sanitize(blog.description || ''),
                                                             }}
                                                       />
                                                 ) : (

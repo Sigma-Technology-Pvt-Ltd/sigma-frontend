@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import DOMPurify from "dompurify";
 import BreadCrumBox from "../../components/common/BreadCrumbBox";
 import {
       AssociationContainer,
@@ -70,7 +71,7 @@ const Associations = () => {
                                                       >
                                                             <span
                                                                   dangerouslySetInnerHTML={{
-                                                                        __html: item?.description,
+                                                                        __html: DOMPurify.sanitize(item?.description || ''),
                                                                   }}
                                                             ></span>
                                                       </AssociationHeadingDesc>

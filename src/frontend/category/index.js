@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import DOMPurify from "dompurify";
 import { useParams } from "react-router-dom";
 import BreadCrumBox from "../../components/common/BreadCrumbBox";
 import axios from "axios";
@@ -114,7 +115,7 @@ const Category = () => {
                                           <Col>
                                                 <div
                                                       dangerouslySetInnerHTML={{
-                                                            __html: category?.description,
+                                                            __html: DOMPurify.sanitize(category?.description || ''),
                                                       }}
                                                 ></div>
                                                 <ProductFilter

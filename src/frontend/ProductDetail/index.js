@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import DOMPurify from "dompurify";
 import BreadCrumBox from "../../components/common/BreadCrumbBox";
 import {
       ProductDetailContainer,
@@ -9,7 +10,6 @@ import {
       ProductDetails,
 } from "./styles";
 import { Accordion, Col, Container, Row } from "react-bootstrap";
-import Magnifier from "react-magnifier";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
@@ -398,7 +398,7 @@ const ProductDetail = () => {
                                                                               "20px",
                                                                   }}
                                                                   dangerouslySetInnerHTML={{
-                                                                        __html: product?.description,
+                                                                        __html: DOMPurify.sanitize(product?.description || ''),
                                                                   }}
                                                             ></p>
                                                       </div>
@@ -414,7 +414,7 @@ const ProductDetail = () => {
                                                       <Accordion.Body>
                                                             <p
                                                                   dangerouslySetInnerHTML={{
-                                                                        __html: product?.specification,
+                                                                        __html: DOMPurify.sanitize(product?.specification || ''),
                                                                   }}
                                                             ></p>
                                                       </Accordion.Body>

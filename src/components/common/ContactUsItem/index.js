@@ -1,4 +1,5 @@
 import React from "react";
+import DOMPurify from "dompurify";
 import {
   ContactItemContainer,
   ContactItemDetail,
@@ -38,7 +39,7 @@ const ContactUsItem = ({ icon, title, info }) => {
               }
               target={title === "map" ? "_blank" : "_self"}
             >
-              <span dangerouslySetInnerHTML={{ __html: item?.title }}></span>
+              <span dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(item?.title || '') }}></span>
             </Link>
           ))}
         </ContactItemTitle>

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import Zoom from "react-medium-image-zoom";
+import "react-medium-image-zoom/dist/styles.css";
 
 import "swiper/css";
 import "swiper/css/free-mode";
@@ -8,7 +10,6 @@ import "swiper/css/thumbs";
 
 // import required modules
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
-import Magnifier from "react-magnifier";
 import {
   ProductSlider,
   ProductSliderContainer,
@@ -34,12 +35,17 @@ function ProductImages({ images, image }) {
       >
         {image && (
           <SwiperSlide>
-            <Magnifier src={image} width="100%" />
+            {/* react-medium-image-zoom: click to zoom, keyboard accessible, React 18 native */}
+            <Zoom>
+              <img src={image} width="100%" alt="Product" />
+            </Zoom>
           </SwiperSlide>
         )}
         {images?.map((item, index) => (
           <SwiperSlide key={index}>
-            <img src={item?.image} />
+            <Zoom>
+              <img src={item?.image} width="100%" alt={`Product view ${index + 1}`} />
+            </Zoom>
           </SwiperSlide>
         ))}
       </ProductSlider>
@@ -55,12 +61,12 @@ function ProductImages({ images, image }) {
       >
         {image && (
           <SwiperSlide>
-            <img src={image} width="100%" />
+            <img src={image} width="100%" alt="Product thumbnail" />
           </SwiperSlide>
         )}
         {images?.map((item, index) => (
           <SwiperSlide key={index}>
-            <img src={item?.image} />
+            <img src={item?.image} alt={`Thumbnail ${index + 1}`} />
           </SwiperSlide>
         ))}
       </ProductSliderThumb>

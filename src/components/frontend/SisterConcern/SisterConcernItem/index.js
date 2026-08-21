@@ -1,4 +1,5 @@
 import React from "react";
+import DOMPurify from "dompurify";
 import {
       SisterConcernContainer,
       SisterWrapper,
@@ -50,7 +51,7 @@ const SisterConcernItem = ({ item, index }) => {
                                                 <SisterConcernDesc>
                                                       <div
                                                             dangerouslySetInnerHTML={{
-                                                                  __html: item?.description,
+                                                                  __html: DOMPurify.sanitize(item?.description || ''),
                                                             }}
                                                       ></div>
                                                 </SisterConcernDesc>

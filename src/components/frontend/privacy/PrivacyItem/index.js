@@ -1,4 +1,5 @@
 import React from "react";
+import DOMPurify from "dompurify";
 import {
       PrivacyItemContainer,
       PrivacyItemContent,
@@ -45,7 +46,7 @@ const PrivacyItem = ({
                                           </PrivacyItemTime>
                                           <p
                                                 dangerouslySetInnerHTML={{
-                                                      __html: item?.description,
+                                                      __html: DOMPurify.sanitize(item?.description || ''),
                                                 }}
                                           ></p>
                                     </PrivacyItemContent>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import DOMPurify from "dompurify";
 import axios from "axios";
 import { useParams, Link } from "react-router-dom";
 import { Accordion, Container, Row, Col } from "react-bootstrap";
@@ -225,7 +226,7 @@ const PreviewPage = () => {
                       {product?.description ? (
                         <div
                           style={{ marginTop: "16px", lineHeight: "1.8", color: "#374151" }}
-                          dangerouslySetInnerHTML={{ __html: product?.description }}
+                          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(product?.description || '') }}
                         />
                       ) : (
                         <p style={{ color: "#9ca3af", fontStyle: "italic", marginTop: "16px" }}>
@@ -243,7 +244,7 @@ const PreviewPage = () => {
                     <Accordion.Header>Specification</Accordion.Header>
                     <Accordion.Body>
                       {product?.specification ? (
-                        <div dangerouslySetInnerHTML={{ __html: product?.specification }} />
+                        <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(product?.specification || '') }} />
                       ) : (
                         <p style={{ color: "#9ca3af", fontStyle: "italic", margin: 0 }}>
                           No specifications added.
