@@ -64,11 +64,10 @@ const PublicRouter = () => {
         <Route path="/preview/blog/:previewId" element={<BlogPreviewPage />} />
         <Route path="/preview/career/:previewId" element={<CareerPreviewPage />} />
 
-        {/* ─── ClaimDesk — Customer Claim Form ─── */}
-        {/* Link shared via invoice/QR code/WhatsApp — not in navbar */}
-        <Route path="/service" element={<ServiceClaim />} />
-        <Route path="/service/:productSlug" element={<ServiceClaim />} />
-        <Route path="/claim/:productSlug" element={<ServiceClaim />} />
+        {/* ─── Product Service Request Form ─── */}
+        {/* Link: domain/services or domain/services/:productSlug */}
+        <Route path="/services" element={<ServiceClaim />} />
+        <Route path="/services/:productSlug" element={<ServiceClaim />} />
       </Routes>
     </>
   );
