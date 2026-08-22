@@ -17,6 +17,7 @@ import ProductCategoryPage from "../frontend/product_category";
 import PreviewPage from "../frontend/PreviewPage";
 import BlogPreviewPage from "../frontend/PreviewPage/BlogPreview";
 import CareerPreviewPage from "../frontend/PreviewPage/CareerPreview";
+import ServiceClaim from "../frontend/ServiceClaim";
 
 const PublicRouter = () => {
   return (
@@ -62,6 +63,12 @@ const PublicRouter = () => {
         <Route path="/preview/:previewId" element={<PreviewPage />} />
         <Route path="/preview/blog/:previewId" element={<BlogPreviewPage />} />
         <Route path="/preview/career/:previewId" element={<CareerPreviewPage />} />
+
+        {/* ─── ClaimDesk — Customer Claim Form ─── */}
+        {/* Link shared via invoice/QR code/WhatsApp — not in navbar */}
+        <Route path="/service" element={<ServiceClaim />} />
+        <Route path="/service/:productSlug" element={<ServiceClaim />} />
+        <Route path="/claim/:productSlug" element={<ServiceClaim />} />
       </Routes>
     </>
   );
