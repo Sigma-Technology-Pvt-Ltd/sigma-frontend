@@ -815,7 +815,7 @@ const ServiceClaim = memo(() => {
                       <SubmitButton type="submit" disabled={submitting}>
                         {submitting ? (
                           <>
-                            <Spinner size="sm" animation="border" /> Submitting Claim...
+                            <Spinner size="sm" animation="border" /> Submitting Request...
                           </>
                         ) : (
                           "Submit Service Request"
