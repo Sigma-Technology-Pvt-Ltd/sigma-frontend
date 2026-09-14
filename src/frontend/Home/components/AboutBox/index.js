@@ -1,41 +1,55 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
       AboutBoxContainer,
       AboutBoxContent,
       AboutBoxDesc,
       AboutBoxImage,
-      AboutBoxWrapper,
 } from "./styles";
 import { Col, Container, Row } from "react-bootstrap";
 import CommonHeading from "../../../../components/frontend/home/CommonHeading";
 import CommonButton from "../../../../components/frontend/home/CommonButton";
-
-export const information = [
-      {
-            id: 1,
-            title: "Experience",
-            desc: "Our great team of more than 140 software experts.",
-            image: "images/img/about/diploma.png",
-      },
-      {
-            id: 2,
-            title: "Quick Support",
-            desc: "We’ll help you test bold new ideas while sharing your.",
-            image: "/images/img/about/wrench.png",
-      },
-];
+import axios from "axios";
+import { getBackendUrl } from "../../../../utils/getBackendUrl";
 
 const AboutBox = ({ button }) => {
+      const [aboutImage, setAboutImage] = useState("images/img/about/about.png");
+
+      useEffect(() => {
+            let isMounted = true;
+            axios.get(`${getBackendUrl()}/api/banners/about`, {
+                  headers: {
+                        apikey: process.env.REACT_APP_API_KEY,
+                  },
+            })
+            .then((res) => {
+                  if (isMounted && res.data?.result === "success" && res.data?.banner?.image) {
+                        setAboutImage(res.data.banner.image);
+                  }
+            })
+            .catch(() => {
+                  // Fallback safely to static original graphic
+            });
+
+            return () => {
+                  isMounted = false;
+            };
+      }, []);
+
       return (
             <>
                   <AboutBoxContainer>
                         <Container>
-                              <Row className="g-5">
+                              <Row className="g-5 align-items-center">
                                     <Col lg={6}>
                                           <AboutBoxImage>
                                                 <img
-                                                      src="images/img/about/about.png"
+                                                      src={aboutImage}
+                                                      alt="About Sigma Technologies"
                                                       className="img-fluid"
+                                                      onError={(e) => {
+                                                            e.target.onerror = null;
+                                                            e.target.src = "images/img/about/about.png";
+                                                      }}
                                                 />
                                           </AboutBoxImage>
                                     </Col>
@@ -71,16 +85,6 @@ const AboutBox = ({ button }) => {
                                                       technical advances of
                                                       today.
                                                 </AboutBoxDesc>
-                                                {/* <AboutBoxWrapper className=""></AboutBoxWrapper>
-                                                <AboutBoxDesc className="mt-3 mb-4">
-                                                      Our showroom is located at
-                                                      Aspen Marg, Maitighar, St.
-                                                      Xavier College Rd,
-                                                      Kathmandu, Nepal, with all
-                                                      the products displayed and
-                                                      brief description of the
-                                                      items.
-                                                </AboutBoxDesc> */}
                                                 {button && (
                                                       <CommonButton
                                                             slug={"about-us"}

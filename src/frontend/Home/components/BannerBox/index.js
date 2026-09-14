@@ -54,11 +54,13 @@ const BannerBox = () => {
                                                               >
                                                                     <BannerContainer>
                                                                           <BannerContent>
-                                                                                <h3>
-                                                                                      {
-                                                                                            item.title
-                                                                                      }
-                                                                                </h3>
+                                                                                {item.title && item.title !== '..' && item.title !== '.' && (
+                                                                                      <h3>
+                                                                                            {
+                                                                                                  item.title
+                                                                                            }
+                                                                                      </h3>
+                                                                                )}
                                                                                 {item?.subtitle && (
                                                                                       <h3>
                                                                                             {
@@ -70,7 +72,9 @@ const BannerBox = () => {
                                                                                       slug={
                                                                                             item.link
                                                                                       }
-                                                                                      marginTop="80px"
+                                                                                      text={
+                                                                                            item.subtitle
+                                                                                      }
                                                                                 />
                                                                           </BannerContent>
                                                                           <BannerImage>
@@ -82,6 +86,12 @@ const BannerBox = () => {
                                                                                       alt={
                                                                                             item.title
                                                                                       }
+                                                                                      onError={(e) => {
+                                                                                            const fname = (item.image || '').split('/').pop();
+                                                                                            if (fname && !e.target.src.includes('sigmatechnologies.com.np')) {
+                                                                                                  e.target.src = `https://sigmatechnologies.com.np/images/banners/${fname}`;
+                                                                                            }
+                                                                                      }}
                                                                                 />
                                                                           </BannerImage>
                                                                     </BannerContainer>
@@ -104,6 +114,9 @@ const BannerBox = () => {
                                                                                           slug={
                                                                                                 item.link
                                                                                           }
+                                                                                          text={
+                                                                                                item.subtitle
+                                                                                          }
                                                                                     />
                                                                               </BannerContent>
                                                                               <BannerImage>
@@ -115,6 +128,12 @@ const BannerBox = () => {
                                                                                           alt={
                                                                                                 item.title
                                                                                           }
+                                                                                          onError={(e) => {
+                                                                                                const fname = (item.image || '').split('/').pop();
+                                                                                                if (fname && !e.target.src.includes('sigmatechnologies.com.np')) {
+                                                                                                      e.target.src = `https://sigmatechnologies.com.np/images/banners/${fname}`;
+                                                                                                }
+                                                                                          }}
                                                                                     />
                                                                               </BannerImage>
                                                                         </BannerContainer>
@@ -135,6 +154,9 @@ const BannerBox = () => {
                                                                                           slug={
                                                                                                 item.link
                                                                                           }
+                                                                                          text={
+                                                                                                item.subtitle
+                                                                                          }
                                                                                     />
                                                                               </BannerContent>
                                                                               <BannerImage height="250px">
@@ -146,6 +168,12 @@ const BannerBox = () => {
                                                                                           alt={
                                                                                                 item.title
                                                                                           }
+                                                                                          onError={(e) => {
+                                                                                                const fname = (item.image || '').split('/').pop();
+                                                                                                if (fname && !e.target.src.includes('sigmatechnologies.com.np')) {
+                                                                                                      e.target.src = `https://sigmatechnologies.com.np/images/banners/${fname}`;
+                                                                                                }
+                                                                                          }}
                                                                                     />
                                                                               </BannerImage>
                                                                         </BannerContainer>

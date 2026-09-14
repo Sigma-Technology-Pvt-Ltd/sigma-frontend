@@ -8,7 +8,7 @@ import {
 import ShopButton from "../../../../../../components/frontend/home/ShopButton";
 import { Col } from "react-bootstrap";
 
-const OfferItem = ({ image, slug, title, position, slogan, order }) => {
+const OfferItem = ({ image, slug, title, position, slogan, order, buttonText }) => {
   return (
     <>
       <Col
@@ -19,7 +19,7 @@ const OfferItem = ({ image, slug, title, position, slogan, order }) => {
           <OfferContent $text="center">
             <h3 className="text-1 w-100">{title}</h3>
             {slogan && <p>{slogan}</p>}
-            <ShopButton slug={slug} />
+            <ShopButton slug={slug} text={buttonText} />
           </OfferContent>
           <CustomCard
             className={position === "left" ? "left" : "center"}

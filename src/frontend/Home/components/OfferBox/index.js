@@ -46,6 +46,7 @@ const OfferBox = () => {
                     image={item.image}
                     position="center"
                     slogan={item.subtitle}
+                    buttonText={item.subtitle}
                     order={2}
                   />
                 )}
@@ -54,6 +55,7 @@ const OfferBox = () => {
                     slug={item.link}
                     title={item.title}
                     image={item.image}
+                    buttonText={item.subtitle}
                     order={index === 1 ? 1 : 3}
                     position="left"
                   />

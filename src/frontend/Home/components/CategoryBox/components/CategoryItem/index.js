@@ -25,6 +25,7 @@ const CategoryItem = ({ category }) => {
     <>
       {category?.link ? (
         <CategoryItemContainer
+          as="a"
           href={linkUrl}
           onClick={(e) => handleExternalLinkClick(e, linkUrl)}
         >
@@ -34,9 +35,7 @@ const CategoryItem = ({ category }) => {
             }}
           />
           <CategoryItemContent>
-            <div className="text-center pb-4">
-              <h5>{category?.subtitle || category?.title}</h5>
-            </div>
+            <h5>{category?.subtitle || category?.title}</h5>
           </CategoryItemContent>
         </CategoryItemContainer>
       ) : (
@@ -47,9 +46,7 @@ const CategoryItem = ({ category }) => {
             }}
           />
           <CategoryItemContent>
-            <div className="text-center pb-4">
-              <h5>{category?.subtitle || category?.title}</h5>
-            </div>
+            <h5>{category?.subtitle || category?.title}</h5>
           </CategoryItemContent>
         </CategoryItemContainer>
       )}
