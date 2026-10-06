@@ -58,10 +58,10 @@ export const ProductActionItem = styled.div`
       justify-content: center;
       border-radius: 50%;
       color: ${(props) =>
-            props.list ? props.theme.primary : props.theme.white};
-      transform: ${(props) => (props.list ? "" : "translateX(-20px)")};
-      opacity: ${(props) => (props.list ? "1" : "0")};
-      visibility: ${(props) => (props.list ? "visibile" : "hidden")};
+            (props.$list || props.list) ? props.theme.primary : props.theme.white};
+      transform: ${(props) => ((props.$list || props.list) ? "" : "translateX(-20px)")};
+      opacity: ${(props) => ((props.$list || props.list) ? "1" : "0")};
+      visibility: ${(props) => ((props.$list || props.list) ? "visibile" : "hidden")};
       margin-bottom: 10px;
       font-size: 0;
       line-height: 0;
@@ -74,14 +74,14 @@ export const ProductActionItem = styled.div`
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
       &:first-child {
             transition: ${(props) =>
-                  props.list
+                  (props.$list || props.list)
                         ? ""
                         : "transform 0.2s ease, opacity 0.2s ease, visibility 0.2s ease;"};
       }
 
       &:nth-child(2) {
             transition: ${(props) =>
-                  props.list
+                  (props.$list || props.list)
                         ? ""
                         : "transform 0.2s ease 0.1s, opacity 0.2s ease 0.1s, visibility 0.2s ease 0.1s;"};
 
@@ -90,7 +90,7 @@ export const ProductActionItem = styled.div`
       }
       &:last-child {
             transition: ${(props) =>
-                  props.list
+                  (props.$list || props.list)
                         ? ""
                         : "transform 0.2s ease, opacity 0.2s ease, visibility 0.2s ease;"};
       }
@@ -109,7 +109,6 @@ export const ProductItemContainer = styled.div`
                   transform: translateX(0px);
                   opacity: 1 !important;
                   visibility: visible !important;
-
                   &:first-child {
                         transition: transform 0.2s ease, opacity 0.2s ease,
                               visibility 0.2s ease;
@@ -117,7 +116,7 @@ export const ProductItemContainer = styled.div`
 
                   &:nth-child(2) {
                         transform: ${(props) =>
-                              props.list ? "" : "translateX(25px)"};
+                              (props.$list || props.list) ? "" : "translateX(25px)"};
                         transition: transform 0.2s ease 0.1s,
                               opacity 0.2s ease 0.1s, visibility 0.2s ease 0.1s;
                   }

@@ -390,7 +390,7 @@ const ProductDetail = () => {
                                                             id="nav-description"
                                                             role="tabpanel"
                                                             aria-labelledby="nav-description-tab"
-                                                            tabindex="0"
+                                                            tabIndex={0}
                                                       >
                                                             <p
                                                                   style={{

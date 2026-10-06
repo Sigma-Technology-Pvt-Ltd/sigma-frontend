@@ -19,7 +19,7 @@ const ProductItem = ({ data, list }) => {
                               gap: list ? "30px" : "",
                               textAlign: list ? "left" : "",
                         }}
-                        list={list}
+                        $list={list}
                   >
                         <ProductItemImage>
                               <Link to={`/product/${data.slug}`}>
@@ -57,17 +57,17 @@ const ProductItem = ({ data, list }) => {
                                           marginTop: list ? "20px " : "",
                                     }}
                               >
-                                    <ProductActionItem list={list}>
+                                    <ProductActionItem $list={list}>
                                           <span className="material-symbols-outlined">
                                                 favorite
                                           </span>
                                     </ProductActionItem>
-                                    <ProductActionItem list={list}>
+                                    <ProductActionItem $list={list}>
                                           <span className="material-symbols-outlined">
                                                 search
                                           </span>
                                     </ProductActionItem>
-                                    <ProductActionItem list={list}>
+                                    <ProductActionItem $list={list}>
                                           <span className="material-symbols-outlined">
                                                 compare_arrows
                                           </span>
