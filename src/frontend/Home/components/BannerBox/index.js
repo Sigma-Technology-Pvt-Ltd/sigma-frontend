@@ -5,6 +5,7 @@ import {
       BannerImage,
       BannerSection,
       BannerWrapper,
+      RightBannerCol,
 } from "./styles";
 import { Col, Row } from "react-bootstrap";
 import ShopButton from "../../../../components/frontend/home/ShopButton";
@@ -38,96 +39,67 @@ const BannerBox = () => {
             loadData();
       }, []);
 
+      const leftBanner = banners?.find((item) => item?.type === "Left Banner Design");
+      const middleBanners = banners?.filter((item) => item?.type === "Middle Banner Design") || [];
+      const bottomBanner = banners?.find((item) => item?.type === "Bottom Banner Design");
+
       return (
-            <>
-                  <BannerSection>
-                        <BannerWrapper fluid>
-                              <Row>
-                                    {!loading
-                                          ? banners?.map(
-                                                  (item, index) =>
-                                                        item?.type ===
-                                                              "Left Banner Design" && (
-                                                              <Col
-                                                                    lg={6}
-                                                                    key={item.id || index}
-                                                              >
-                                                                    <BannerContainer>
-                                                                          <BannerContent>
-                                                                                {item.title && item.title !== '..' && item.title !== '.' && (
-                                                                                      <h3>
-                                                                                            {
-                                                                                                  item.title
-                                                                                            }
-                                                                                      </h3>
-                                                                                )}
-                                                                                {item?.subtitle && (
-                                                                                      <h3>
-                                                                                            {
-                                                                                                  item.subtitle
-                                                                                            }
-                                                                                      </h3>
-                                                                                )}
-                                                                                <ShopButton
-                                                                                      slug={
-                                                                                            item.link
-                                                                                      }
-                                                                                      text={
-                                                                                            item.subtitle
-                                                                                      }
-                                                                                />
-                                                                          </BannerContent>
-                                                                          <BannerImage>
-                                                                                <img
-                                                                                      src={
-                                                                                            item.image
-                                                                                      }
-                                                                                      className="img-fluid"
-                                                                                      alt={
-                                                                                            item.title
-                                                                                      }
-                                                                                      onError={(e) => {
-                                                                                            const fname = (item.image || '').split('/').pop();
-                                                                                            if (fname && !e.target.src.includes('sigmatechnologies.com.np')) {
-                                                                                                  e.target.src = `https://sigmatechnologies.com.np/images/banners/${fname}`;
-                                                                                            }
-                                                                                      }}
-                                                                                />
-                                                                          </BannerImage>
-                                                                    </BannerContainer>
-                                                              </Col>
-                                                        )
-                                            )
-                                          : null}
-                                    <Col lg={6}>
-                                          <Row className="g-4">
-                                                {banners.map((item, index) => (
-                                                      <React.Fragment key={item.id || `middle-${index}`}>
-                                                            {item?.type ===
-                                                                  "Middle Banner Design" && (
-                                                                  <Col
-                                                                        lg={6}
-                                                                  >
+            <BannerSection>
+                  <BannerWrapper fluid>
+                        {!loading && (
+                              <Row className="g-4 align-items-start">
+                                    {/* 1. Left Large Promotional Banner */}
+                                    {leftBanner && (
+                                          <Col lg={6} key={leftBanner.id || "left-banner"}>
+                                                <BannerContainer>
+                                                      <BannerContent>
+                                                            {leftBanner.title && leftBanner.title !== '..' && leftBanner.title !== '.' && (
+                                                                  <h3>{leftBanner.title}</h3>
+                                                            )}
+                                                            {leftBanner?.subtitle && (
+                                                                  <h3>{leftBanner.subtitle}</h3>
+                                                            )}
+                                                            <ShopButton
+                                                                  slug={leftBanner.link}
+                                                                  text={leftBanner.subtitle}
+                                                            />
+                                                      </BannerContent>
+                                                      <BannerImage>
+                                                            <img
+                                                                  src={leftBanner.image}
+                                                                  className="img-fluid"
+                                                                  alt={leftBanner.title || "Banner"}
+                                                                  onError={(e) => {
+                                                                        const fname = (leftBanner.image || '').split('/').pop();
+                                                                        if (fname && !e.target.src.includes('sigmatechnologies.com.np')) {
+                                                                              e.target.src = `https://sigmatechnologies.com.np/images/banners/${fname}`;
+                                                                        }
+                                                                  }}
+                                                            />
+                                                      </BannerImage>
+                                                </BannerContainer>
+                                          </Col>
+                                    )}
+
+                                    {/* 2. Right Side: 2 Top Squares + 1 Bottom Wide Banner */}
+                                    {(middleBanners.length > 0 || bottomBanner) && (
+                                          <RightBannerCol lg={6}>
+                                                {middleBanners.length > 0 && (
+                                                      <Row className="g-4 middle-row">
+                                                            {middleBanners.map((item, index) => (
+                                                                  <Col xs={12} sm={6} key={item.id || `middle-${index}`}>
                                                                         <BannerContainer>
                                                                               <BannerContent>
                                                                                     <ShopButton
-                                                                                          slug={
-                                                                                                item.link
-                                                                                          }
-                                                                                          text={
-                                                                                                item.subtitle
-                                                                                          }
+                                                                                          slug={item.link}
+                                                                                          text={item.subtitle}
                                                                                     />
                                                                               </BannerContent>
                                                                               <BannerImage>
                                                                                     <img
-                                                                                          src={
-                                                                                                item.image
-                                                                                          }
+                                                                                          src={item.image}
                                                                                           className="img-fluid"
-                                                                                          alt={
-                                                                                                item.title
-                                                                                          }
+                                                                                          alt={item.title || "Banner"}
                                                                                           onError={(e) => {
                                                                                                 const fname = (item.image || '').split('/').pop();
                                                                                                 if (fname && !e.target.src.includes('sigmatechnologies.com.np')) {
@@ -138,55 +110,39 @@ const BannerBox = () => {
                                                                               </BannerImage>
                                                                         </BannerContainer>
                                                                   </Col>
-                                                            )}
-                                                      </React.Fragment>
-                                                ))}
-                                                {banners?.map((item, index) => (
-                                                      <React.Fragment key={item.id || `bottom-${index}`}>
-                                                            {item?.type ===
-                                                                  "Bottom Banner Design" && (
-                                                                  <Col
-                                                                        lg={12}
-                                                                  >
-                                                                        <BannerContainer>
-                                                                              <BannerContent leftValue="50px">
-                                                                                    <ShopButton
-                                                                                          slug={
-                                                                                                item.link
-                                                                                          }
-                                                                                          text={
-                                                                                                item.subtitle
-                                                                                          }
-                                                                                    />
-                                                                              </BannerContent>
-                                                                              <BannerImage height="250px">
-                                                                                    <img
-                                                                                          src={
-                                                                                                item.image
-                                                                                          }
-                                                                                          className="img-fluid"
-                                                                                          alt={
-                                                                                                item.title
-                                                                                          }
-                                                                                          onError={(e) => {
-                                                                                                const fname = (item.image || '').split('/').pop();
-                                                                                                if (fname && !e.target.src.includes('sigmatechnologies.com.np')) {
-                                                                                                      e.target.src = `https://sigmatechnologies.com.np/images/banners/${fname}`;
-                                                                                                }
-                                                                                          }}
-                                                                                    />
-                                                                              </BannerImage>
-                                                                        </BannerContainer>
-                                                                  </Col>
-                                                            )}
-                                                      </React.Fragment>
-                                                ))}
-                                          </Row>
-                                    </Col>
+                                                            ))}
+                                                      </Row>
+                                                )}
+
+                                                {bottomBanner && (
+                                                      <BannerContainer>
+                                                            <BannerContent leftValue="50px">
+                                                                  <ShopButton
+                                                                        slug={bottomBanner.link}
+                                                                        text={bottomBanner.subtitle}
+                                                                  />
+                                                            </BannerContent>
+                                                            <BannerImage>
+                                                                  <img
+                                                                        src={bottomBanner.image}
+                                                                        className="img-fluid"
+                                                                        alt={bottomBanner.title || "Banner"}
+                                                                        onError={(e) => {
+                                                                              const fname = (bottomBanner.image || '').split('/').pop();
+                                                                              if (fname && !e.target.src.includes('sigmatechnologies.com.np')) {
+                                                                                    e.target.src = `https://sigmatechnologies.com.np/images/banners/${fname}`;
+                                                                              }
+                                                                        }}
+                                                                  />
+                                                            </BannerImage>
+                                                      </BannerContainer>
+                                                )}
+                                          </RightBannerCol>
+                                    )}
                               </Row>
-                        </BannerWrapper>
-                  </BannerSection>
-            </>
+                        )}
+                  </BannerWrapper>
+            </BannerSection>
       );
 };
 

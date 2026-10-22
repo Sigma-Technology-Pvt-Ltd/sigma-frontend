@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/sitemap.xml",
+      "destination": "https://sigma-backend-s4pg.onrender.com/sitemap.xml"
+    },
+    {
       "source": "/images/:folder/:filename",
       "destination": "https://qfmlelswaluwtmndsadz.supabase.co/storage/v1/object/public/sigma-media/:folder/:filename"
     },

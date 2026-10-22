@@ -24,14 +24,14 @@ const ProductFilter = ({ setList, list, category, setSort, sort }) => {
                         <ProductSort className="gap-3">
                               <ProductListItem
                                     onClick={() => setList(true)}
-                                    list={list}
+                                    $list={list}
                               >
                                     <span className="material-symbols-outlined">
                                           menu
                                     </span>
                               </ProductListItem>
                               <ProductGrid
-                                    list={list}
+                                    $list={list}
                                     onClick={() => setList(false)}
                               >
                                     <span className="material-symbols-outlined">
@@ -46,7 +46,7 @@ const ProductFilter = ({ setList, list, category, setSort, sort }) => {
                                                 aria-label="Without label"
                                           >
                                                 <option value="">
-                                                      <em>Default Sorting</em>
+                                                      Default Sorting
                                                 </option>
                                                 <option value="asc">
                                                       Sort by price: low to high

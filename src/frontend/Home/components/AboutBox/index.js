@@ -10,8 +10,10 @@ import CommonHeading from "../../../../components/frontend/home/CommonHeading";
 import CommonButton from "../../../../components/frontend/home/CommonButton";
 import axios from "axios";
 import { getBackendUrl } from "../../../../utils/getBackendUrl";
+import DiamondCluster from "./DiamondCluster";
 
 const AboutBox = ({ button }) => {
+      const [bannerData, setBannerData] = useState(null);
       const [aboutImage, setAboutImage] = useState("images/img/about/about.png");
 
       useEffect(() => {
@@ -22,8 +24,11 @@ const AboutBox = ({ button }) => {
                   },
             })
             .then((res) => {
-                  if (isMounted && res.data?.result === "success" && res.data?.banner?.image) {
-                        setAboutImage(res.data.banner.image);
+                  if (isMounted && res.data?.result === "success" && res.data?.banner) {
+                        setBannerData(res.data.banner);
+                        if (res.data.banner.image) {
+                              setAboutImage(res.data.banner.image);
+                        }
                   }
             })
             .catch(() => {
@@ -41,26 +46,34 @@ const AboutBox = ({ button }) => {
                         <Container>
                               <Row className="g-5 align-items-center">
                                     <Col lg={6}>
-                                          <AboutBoxImage>
-                                                <img
-                                                      src={aboutImage}
-                                                      alt="About Sigma Technologies"
-                                                      className="img-fluid"
-                                                      onError={(e) => {
-                                                            e.target.onerror = null;
-                                                            e.target.src = "images/img/about/about.png";
-                                                      }}
-                                                />
-                                          </AboutBoxImage>
+                                          {bannerData?.mode === "cluster" ? (
+                                                <DiamondCluster clusterImages={bannerData.clusterImages} />
+                                          ) : (
+                                                <AboutBoxImage>
+                                                      <img
+                                                            src={aboutImage}
+                                                            alt="About Sigma Technologies"
+                                                            className="img-fluid"
+                                                            loading="lazy"
+                                                            decoding="async"
+                                                            onError={(e) => {
+                                                                  e.target.onerror = null;
+                                                                  e.target.src = "images/img/about/about.png";
+                                                            }}
+                                                      />
+                                                </AboutBoxImage>
+                                          )}
                                     </Col>
                                     <Col lg={6}>
                                           <AboutBoxContent>
                                                 <CommonHeading
-                                                      subTitle={"about us"}
+                                                      subTitle={"ABOUT US"}
                                                       title={
-                                                            " We are Sigma Technologies Pvt. Ltd"
+                                                            <>
+                                                                  We Are <span style={{ color: "#0d6efd" }}>Sigma</span> Technologies Pvt. Ltd.
+                                                            </>
                                                       }
-                                                      width={"80%"}
+                                                      width={"100%"}
                                                 />
                                                 <AboutBoxDesc className="mt-3 mb-4">
                                                       Retooled with the view of

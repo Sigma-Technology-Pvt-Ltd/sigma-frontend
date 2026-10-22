@@ -24,7 +24,7 @@ export const ProductListItem = styled.div`
       cursor: pointer;
       display: flex;
       align-items: center;
-      color: ${(props) => (props.list ? props.theme.primary : "")};
+      color: ${(props) => (props.$list ? props.theme.primary : "")};
       &:hover {
             color: ${(props) => props.theme.primary};
       }
@@ -33,7 +33,7 @@ export const ProductGrid = styled.div`
       cursor: pointer;
       display: flex;
       align-items: center;
-      color: ${(props) => (props.list ? " " : props.theme.primary)};
+      color: ${(props) => (props.$list ? " " : props.theme.primary)};
       &:hover {
             color: ${(props) => props.theme.primary};
       }

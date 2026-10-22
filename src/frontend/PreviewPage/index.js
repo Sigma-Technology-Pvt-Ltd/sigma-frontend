@@ -1,3 +1,4 @@
+import { formatCurrency } from "../../utils/formatCurrency";
 import React, { useEffect, useState } from "react";
 import DOMPurify from "dompurify";
 import axios from "axios";
@@ -155,15 +156,15 @@ const PreviewPage = () => {
                       {salePrice ? (
                         <>
                           <del style={{ color: "#9ca3af", marginRight: "12px" }}>
-                            Rs: {price}
+                            {formatCurrency(price)}
                           </del>
                           <span style={{ color: "#2563eb", fontWeight: "bold", fontSize: "22px" }}>
-                            Rs: {salePrice}
+                            {formatCurrency(salePrice)}
                           </span>
                         </>
                       ) : price ? (
                         <span style={{ color: "#2563eb", fontWeight: "bold", fontSize: "22px" }}>
-                          Rs: {price}
+                          {formatCurrency(price)}
                         </span>
                       ) : null}
 
@@ -256,22 +257,46 @@ const PreviewPage = () => {
                     <Accordion.Header>Downloads</Accordion.Header>
                     <Accordion.Body>
                       {product?.downloads && product.downloads.length > 0 ? (
-                        product.downloads.map((item, index) => (
-                          <a
-                            key={index}
-                            href={item.filename ? `${BACKEND_URL}/images/documents/${item.filename}` : "#"}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="d-flex align-items-center border-bottom pb-2 pt-2"
-                            style={{ color: "#dc3545", textDecoration: "none", cursor: "pointer" }}
-                            title="Click to view/download file"
-                          >
-                            <i className="bx bxs-file-pdf fs-4 me-2"></i>
-                            <span className="text-dark">
-                              {item.title || item.originalFilename || item.original_filename || item.filename || "Download File"}
-                            </span>
-                          </a>
-                        ))
+                        product.downloads.map((item, index) => {
+                          const rawTitle = (item.title || item.originalFilename || item.original_filename || "").trim().toLowerCase();
+                          
+                          let displayLabel = "Download Product Catalog";
+                          if (rawTitle.includes("manual") || rawTitle.includes("guide") || rawTitle.includes("installation")) {
+                            displayLabel = "Download Manual";
+                          } else if (rawTitle.includes("spec") || rawTitle.includes("sheet")) {
+                            displayLabel = "Download Technical Specifications";
+                          } else if (rawTitle.includes("catalog") || rawTitle.includes("brochure")) {
+                            displayLabel = "Download Product Catalog";
+                          } else {
+                            if (index === 0) {
+                              displayLabel = "Download Product Catalog";
+                            } else if (index === 1) {
+                              displayLabel = "Download Manual";
+                            } else {
+                              displayLabel = "Download Technical Specifications";
+                            }
+                          }
+
+                          return (
+                            <a
+                              key={index}
+                              href={item.filename ? `${BACKEND_URL}/images/documents/${item.filename}` : "#"}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="d-flex align-items-center justify-content-between border-bottom pb-2 pt-2 text-decoration-none"
+                              style={{ color: "#dc3545", cursor: "pointer" }}
+                              title={`Click to view/download ${displayLabel}`}
+                            >
+                              <div className="d-flex align-items-center">
+                                <i className="bx bxs-file-pdf fs-4 me-2 text-danger"></i>
+                                <span className="text-dark fw-medium">
+                                  {displayLabel}
+                                </span>
+                              </div>
+                              <span className="badge bg-light text-secondary border px-2 py-1">PDF</span>
+                            </a>
+                          );
+                        })
                       ) : (
                         <p style={{ color: "#9ca3af", fontStyle: "italic", margin: 0 }}>
                           No downloads available.

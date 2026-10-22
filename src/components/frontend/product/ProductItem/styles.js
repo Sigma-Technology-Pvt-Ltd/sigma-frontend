@@ -1,12 +1,22 @@
 import styled from "styled-components";
 
 export const ProductItemImage = styled.div`
+      background-color: #f8f9fa;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 170px;
+      overflow: hidden;
+
       img {
             height: 170px;
             object-fit: contain;
+            transition: opacity 0.25s ease-in-out;
       }
 
       @media screen and (max-width: 568px) {
+            min-height: 160px;
             img {
                   height: 160px;
             }

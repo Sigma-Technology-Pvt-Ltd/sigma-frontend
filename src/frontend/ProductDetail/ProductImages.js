@@ -37,14 +37,14 @@ function ProductImages({ images, image }) {
           <SwiperSlide>
             {/* react-medium-image-zoom: click to zoom, keyboard accessible, React 18 native */}
             <Zoom>
-              <img src={image} width="100%" alt="Product" />
+              <img src={image} width="100%" alt="Product" fetchpriority="high" decoding="async" />
             </Zoom>
           </SwiperSlide>
         )}
         {images?.map((item, index) => (
           <SwiperSlide key={index}>
             <Zoom>
-              <img src={item?.image} width="100%" alt={`Product view ${index + 1}`} />
+              <img src={item?.image} width="100%" alt={`Product view ${index + 1}`} loading="lazy" decoding="async" />
             </Zoom>
           </SwiperSlide>
         ))}
@@ -61,12 +61,12 @@ function ProductImages({ images, image }) {
       >
         {image && (
           <SwiperSlide>
-            <img src={image} width="100%" alt="Product thumbnail" />
+            <img src={image} width="100%" alt="Product thumbnail" loading="lazy" decoding="async" />
           </SwiperSlide>
         )}
         {images?.map((item, index) => (
           <SwiperSlide key={index}>
-            <img src={item?.image} alt={`Thumbnail ${index + 1}`} />
+            <img src={item?.image} alt={`Thumbnail ${index + 1}`} loading="lazy" decoding="async" />
           </SwiperSlide>
         ))}
       </ProductSliderThumb>

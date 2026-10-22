@@ -1,63 +1,87 @@
-import { Container } from "react-bootstrap";
+import { Col, Container } from "react-bootstrap";
 import styled, { css } from "styled-components";
 
-export const BannerImage = styled.div`
-  height: ${(props) => props.height};
-
-  @media screen and (max-width: 568px) {
-    height: auto;
-  }
-`;
 export const BannerWrapper = styled(Container)`
   @media screen and (max-width: 568px) {
+    padding-left: 15px;
+    padding-right: 15px;
     .g-4 {
-      --bs-gutter-y: 0;
-      --bs-gutter-x: 0;
+      --bs-gutter-y: 16px;
+      --bs-gutter-x: 16px;
     }
   }
 `;
+
 export const BannerTransition = css`
-  -webkit-transition: all 0.5s ease;
-  -moz-transition: all 0.5s ease;
-  -o-transition: all 0.5s ease;
-  transition: all 0.5s ease;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
 `;
+
 export const BannerContainer = styled.div`
   position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  width: 100%;
 
   @media screen and (max-width: 568px) {
-    margin-bottom: 20px;
+    margin-bottom: 16px;
   }
 `;
-export const BannerSection = styled.section`
-  ${BannerWrapper} {
-    padding: 20px 30px;
-  }
-  ${BannerImage} {
-    overflow: hidden;
-    border-radius: 10px;
 
-    &:hover {
-      img {
-        transform: scale(1.1);
-        ${BannerTransition}
-      }
-    }
+export const BannerImage = styled.div`
+  width: 100%;
+  overflow: hidden;
+  border-radius: 10px;
+
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+    transform: scale(1);
+    ${BannerTransition}
+  }
+
+  &:hover {
     img {
-      width: 100%;
-      transform: scale(1);
+      transform: scale(1.03);
       ${BannerTransition}
-      &.first {
-        height: calc(100vh - 120px);
-        width: 100%;
-        object-fit: cover;
-      }
-      border-radius: 10px;
     }
   }
 `;
+
+export const BannerContent = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== "leftValue" && prop !== "topValue",
+})`
+  position: absolute;
+  z-index: 10;
+  bottom: 20px;
+  left: 20px;
+  text-align: left;
+  pointer-events: auto;
+
+  @media screen and (max-width: 568px) {
+    bottom: 14px;
+    left: 14px;
+  }
+
+  h3 {
+    color: ${(props) => props.theme.white};
+    text-transform: uppercase;
+    font-size: 18px;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+  }
+`;
+
 export const ShopButtonContainer = styled.div`
-  margin-top: ${(props) => props.$marginTop || props.marginTop || "20px"};
+  margin-top: ${(props) => props.$marginTop || props.marginTop || "0px"};
+
+  ${BannerContent} h3 + & {
+    margin-top: 12px;
+  }
   
   a.shop-now-btn {
     display: inline-flex;
@@ -67,10 +91,10 @@ export const ShopButtonContainer = styled.div`
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     color: #ffffff !important;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     text-transform: capitalize !important;
-    padding: 9px 20px;
+    padding: 8px 18px;
     border-radius: 50px;
     border: 1px solid rgba(255, 255, 255, 0.35);
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28);
@@ -95,25 +119,25 @@ export const ShopButtonContainer = styled.div`
   }
 `;
 
-export const BannerContent = styled.div.withConfig({
-  shouldForwardProp: (prop) => prop !== "leftValue" && prop !== "topValue",
-})`
-  position: absolute;
-  z-index: 10;
-  bottom: 24px;
-  left: 24px;
-  text-align: left;
+export const BannerSection = styled.section`
+  ${BannerWrapper} {
+    padding: 20px 30px;
+  }
+`;
 
-  @media screen and (max-width: 568px) {
-    bottom: 16px;
-    left: 16px;
+export const RightBannerCol = styled(Col)`
+  .middle-row {
+    margin-bottom: 20px;
   }
 
-  h3 {
-    color: ${(props) => props.theme.white};
-    text-transform: uppercase;
-    font-size: 18px;
-    margin-bottom: 8px;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+  @media screen and (max-width: 991px) {
+    margin-top: 20px;
+  }
+
+  @media screen and (max-width: 568px) {
+    margin-top: 0;
+    .middle-row {
+      margin-bottom: 0;
+    }
   }
 `;

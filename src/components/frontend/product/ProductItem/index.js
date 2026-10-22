@@ -9,6 +9,7 @@ import {
       ProductStatusItem,
 } from "./styles";
 import { Link } from "react-router-dom";
+import { formatCurrency } from "../../../../utils/formatCurrency";
 
 const ProductItem = ({ data, list }) => {
       return (
@@ -28,6 +29,8 @@ const ProductItem = ({ data, list }) => {
                                           alt={data?.title}
                                           width={"100%"}
                                           height={"100%"}
+                                          loading="lazy"
+                                          decoding="async"
                                           className="img-fluid"
                                     />
                               </Link>
@@ -40,11 +43,11 @@ const ProductItem = ({ data, list }) => {
                               </h3>
                               {data.sale_price ? (
                                     <p>
-                                          <del>Rs: {data?.price}</del> Rs:{" "}
-                                          {data?.sale_price}
+                                          <del>{formatCurrency(data?.price)}</del>{" "}
+                                          {formatCurrency(data?.sale_price)}
                                     </p>
                               ) : data.price ? (
-                                    <p> Rs: {data?.price}</p>
+                                    <p>{formatCurrency(data?.price)}</p>
                               ) : (
                                     ""
                               )}

@@ -20,6 +20,8 @@ import {
 import { Helmet } from "react-helmet";
 import ProductImages from "./ProductImages";
 import { ProductStatusItem } from "../../components/frontend/product/ProductItem/styles";
+import { getBackendUrl } from "../../utils/getBackendUrl";
+import { formatCurrency } from "../../utils/formatCurrency";
 
 const ProductDetail = () => {
       const [show, setShow] = useState(false);
@@ -40,7 +42,7 @@ const ProductDetail = () => {
 
             await axios
                   .get(
-                        `${process.env.REACT_APP_SECRET_KEY}/api/products/${productId}/show`,
+                        `${getBackendUrl()}/api/products/${productId}/show`,
                         {
                               headers: {
                                     apikey: process.env.REACT_APP_API_KEY,
@@ -65,10 +67,10 @@ const ProductDetail = () => {
             loadData();
       }, [productId]);
 
-      const handleDownload = async (productId) => {
+      const handleDownload = async (productId, fallbackName) => {
             try {
                   const response = await axios.get(
-                        `${process.env.REACT_APP_SECRET_KEY}/api/download-image/${productId}`, // Adjust as needed
+                        `${getBackendUrl()}/api/download-image/${productId}`,
                         {
                               responseType: "blob",
                               headers: {
@@ -77,17 +79,38 @@ const ProductDetail = () => {
                         }
                   );
 
-                  const contentType = response.headers["content-type"];
+                  const contentType = response.headers["content-type"] || "application/octet-stream";
 
-                  // Determine file extension based on content type
+                  // Extract filename from Content-Disposition header if provided by backend
+                  const disposition = response.headers["content-disposition"];
+                  let filename = "";
+                  if (disposition) {
+                        const utf8Match = disposition.match(/filename\*=UTF-8''([^;]+)/i);
+                        if (utf8Match && utf8Match[1]) {
+                              filename = decodeURIComponent(utf8Match[1]);
+                        } else {
+                              const match = disposition.match(/filename="?([^";]+)"?/);
+                              if (match && match[1]) {
+                                    filename = decodeURIComponent(match[1]);
+                              }
+                        }
+                  }
+
+                  // Determine file extension based on content type if filename not resolved
                   let extension = "";
-                  if (contentType === "application/pdf") {
+                  if (contentType.includes("pdf")) {
                         extension = "pdf";
                   } else if (contentType.startsWith("image/")) {
-                        extension = contentType.split("/")[1]; // e.g., image/jpeg -> jpeg
-                  } else {
-                        console.error("Unsupported file type:", contentType);
-                        return;
+                        extension = contentType.split("/")[1] || "png";
+                  }
+
+                  if (!filename) {
+                        const safeFallback = fallbackName ? fallbackName.replace(/[<>:"/\\|?*]+/g, " ").trim() : "";
+                        if (safeFallback) {
+                              filename = `${safeFallback}.${extension || "pdf"}`;
+                        } else {
+                              filename = `${productId}.${extension || "pdf"}`;
+                        }
                   }
 
                   const blob = new Blob([response.data], { type: contentType });
@@ -95,7 +118,7 @@ const ProductDetail = () => {
 
                   const link = document.createElement("a");
                   link.href = url;
-                  link.download = `${productId}.${extension}`;
+                  link.download = filename;
                   link.style.display = "none";
 
                   document.body.appendChild(link);
@@ -110,53 +133,109 @@ const ProductDetail = () => {
 
       return (
             <>
-                  {!loading && (
+                  {!loading && product && (
                         <Helmet>
                               <title>
-                                    {product?.seo_title || product?.title}
+                                    {product?.seo_title || product?.title || "Product"} - Sigma Technologies
                               </title>
                               <link
                                     rel="canonical"
-                                    href={window.location.href}
+                                    href={`https://sigmatechnologies.com.np/product/${product?.slug || productId}`}
                               />
-                              {product.seo_description && (
+                              <meta
+                                    name="description"
+                                    content={
+                                          product?.seo_description ||
+                                          (product?.description
+                                                ? product.description.replace(/<[^>]*>?/gm, "").substring(0, 160)
+                                                : "Explore premium heating, cooling, and water solutions from Sigma Technologies Nepal.")
+                                    }
+                              />
+                              {product?.seo_keyword && (
                                     <meta
-                                          name="description"
-                                          content={product.seo_description}
-                                    />
-                              )}
-                              {product.seo_keyword && (
-                                    <meta
-                                          name="keyword"
+                                          name="keywords"
                                           content={product.seo_keyword}
                                     />
                               )}
                               <meta property="og:locale" content="en_US" />
-                              <meta property="og:type" content="website" />
+                              <meta property="og:type" content="product" />
                               <meta
                                     property="og:title"
-                                    content={
-                                          product?.seo_title || product?.title
-                                    }
+                                    content={product?.seo_title || product?.title}
                               />
                               <meta
                                     property="og:url"
-                                    content={window.location.href}
+                                    content={`https://sigmatechnologies.com.np/product/${product?.slug || productId}`}
                               />
-                              {product?.seo_description && (
-                                    <meta
-                                          property="og:description"
-                                          content={product?.seo_description}
-                                    />
-                              )}
+                              <meta
+                                    property="og:description"
+                                    content={
+                                          product?.seo_description ||
+                                          (product?.description
+                                                ? product.description.replace(/<[^>]*>?/gm, "").substring(0, 160)
+                                                : "")
+                                    }
+                              />
                               <meta
                                     property="og:site_name"
-                                    content="Sigma Technologies"
-                              />
+                                    content="Sigma Technologies Pvt. Ltd."
+                                />
                               <meta
                                     name="twitter:card"
                                     content="summary_large_image"
                               />
+
+                              {/* Product & Breadcrumb Schema */}
+                              <script type="application/ld+json">
+                                    {JSON.stringify({
+                                          "@context": "https://schema.org",
+                                          "@graph": [
+                                                {
+                                                      "@type": "Product",
+                                                      "name": product?.title,
+                                                      "description": product?.seo_description || (product?.description ? product.description.replace(/<[^>]*>?/gm, "").substring(0, 250) : ""),
+                                                      "image": product?.image ? (product.image.startsWith("http") ? product.image : `https://sigmatechnologies.com.np/images/products/${product.image}`) : "https://sigmatechnologies.com.np/images/png/logo/sigma.png",
+                                                      "url": `https://sigmatechnologies.com.np/product/${product?.slug || productId}`,
+                                                      "brand": {
+                                                            "@type": "Brand",
+                                                            "name": product?.brand?.name || "Sigma Technologies"
+                                                      },
+                                                      "offers": {
+                                                            "@type": "Offer",
+                                                            "url": `https://sigmatechnologies.com.np/product/${product?.slug || productId}`,
+                                                            "priceCurrency": "NPR",
+                                                            "price": product?.price ? String(product.price).replace(/[^0-9.]/g, "") : "0",
+                                                            "priceValidUntil": "2027-12-31",
+                                                            "itemCondition": "https://schema.org/NewCondition",
+                                                            "availability": (product?.stock && Number(product.stock) > 0) || !product?.stock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock"
+                                                      }
+                                                },
+                                                {
+                                                      "@type": "BreadcrumbList",
+                                                      "itemListElement": [
+                                                            {
+                                                                  "@type": "ListItem",
+                                                                  "position": 1,
+                                                                  "name": "Home",
+                                                                  "item": "https://sigmatechnologies.com.np"
+                                                            },
+                                                            {
+                                                                  "@type": "ListItem",
+                                                                  "position": 2,
+                                                                  "name": "Products",
+                                                                  "item": "https://sigmatechnologies.com.np/products"
+                                                            },
+                                                            {
+                                                                  "@type": "ListItem",
+                                                                  "position": 3,
+                                                                  "name": product?.title || "Product",
+                                                                  "item": `https://sigmatechnologies.com.np/product/${product?.slug || productId}`
+                                                            }
+                                                      ]
+                                                }
+                                          ]
+                                    })}
+                              </script>
                         </Helmet>
                   )}
                   <BreadCrumBox title={product?.title} />
@@ -208,25 +287,16 @@ const ProductDetail = () => {
                                                             {product.sale_price ? (
                                                                   <>
                                                                         <del>
-                                                                              Rs:{" "}
-                                                                              {
-                                                                                    product?.price
-                                                                              }
+                                                                              {formatCurrency(product?.price)}
                                                                         </del>{" "}
                                                                         <span>
-                                                                              Rs:{" "}
-                                                                              {
-                                                                                    product?.sale_price
-                                                                              }
+                                                                              {formatCurrency(product?.sale_price)}
                                                                         </span>
                                                                   </>
                                                             ) : product?.price ? (
                                                                   <>
                                                                         <span>
-                                                                              Rs:{" "}
-                                                                              {
-                                                                                    product?.price
-                                                                              }
+                                                                              {formatCurrency(product?.price)}
                                                                         </span>
                                                                   </>
                                                             ) : null}
@@ -424,30 +494,55 @@ const ProductDetail = () => {
                                                             Downloads
                                                       </Accordion.Header>
                                                       <Accordion.Body>
-                                                            {product?.downloads?.map(
-                                                                  (
-                                                                        item,
-                                                                        index
-                                                                  ) => (
+                                                            {product?.downloads?.map((item, index) => {
+                                                                  const rawTitle = (item.title || item.original_filename || "").trim().toLowerCase();
+                                                                  
+                                                                  let displayLabel = "Download Product Catalog";
+                                                                  let docType = "Product Catalog";
+
+                                                                  if (rawTitle.includes("manual") || rawTitle.includes("guide") || rawTitle.includes("installation")) {
+                                                                        displayLabel = "Download Manual";
+                                                                        docType = "Manual";
+                                                                  } else if (rawTitle.includes("spec") || rawTitle.includes("sheet")) {
+                                                                        displayLabel = "Download Technical Specifications";
+                                                                        docType = "Technical Specifications";
+                                                                  } else if (rawTitle.includes("catalog") || rawTitle.includes("brochure")) {
+                                                                        displayLabel = "Download Product Catalog";
+                                                                        docType = "Product Catalog";
+                                                                  } else {
+                                                                        // Order-based detection for model-code filenames: 1st is Catalog, 2nd is Manual
+                                                                        if (index === 0) {
+                                                                              displayLabel = "Download Product Catalog";
+                                                                              docType = "Product Catalog";
+                                                                        } else if (index === 1) {
+                                                                              displayLabel = "Download Manual";
+                                                                              docType = "Manual";
+                                                                        } else {
+                                                                              displayLabel = "Download Technical Specifications";
+                                                                              docType = "Technical Specifications";
+                                                                        }
+                                                                  }
+
+                                                                  const safeFallbackName = `${product?.title || "Product"} - ${docType}`;
+
+                                                                  return (
                                                                         <a
-                                                                              key={
-                                                                                    index
-                                                                              }
-                                                                              onClick={() =>
-                                                                                    handleDownload(
-                                                                                          item.slug
-                                                                                    )
-                                                                              }
-                                                                              className="d-flex align-items-center border-bottom pb-2 pt-2"
-                                                                              style={{ cursor: 'pointer', color: '#dc3545' }}
+                                                                              key={index}
+                                                                              onClick={() => handleDownload(item.slug, safeFallbackName)}
+                                                                              className="d-flex align-items-center justify-content-between border-bottom pb-2 pt-2 text-decoration-none"
+                                                                              style={{ cursor: "pointer", color: "#dc3545" }}
+                                                                              title={`Click to download ${displayLabel}`}
                                                                         >
-                                                                              <i className="bx bxs-file-pdf fs-4 me-2"></i>
-                                                                              <span className="text-dark">
-                                                                                    {item.title || item.original_filename || "Download File"}
-                                                                              </span>
+                                                                              <div className="d-flex align-items-center">
+                                                                                    <i className="bx bxs-file-pdf fs-4 me-2 text-danger"></i>
+                                                                                    <span className="text-dark fw-medium">
+                                                                                          {displayLabel}
+                                                                                    </span>
+                                                                              </div>
+                                                                              <span className="badge bg-light text-secondary border px-2 py-1">PDF</span>
                                                                         </a>
-                                                                  )
-                                                            )}
+                                                                  );
+                                                            })}
                                                       </Accordion.Body>
                                                 </Accordion.Item>
                                           </DetailAccordion>
@@ -495,6 +590,8 @@ const ProductDetail = () => {
                                                                                                                   item?.image
                                                                                                             }
                                                                                                             className="img-fluid"
+                                                                                                            loading="lazy"
+                                                                                                            decoding="async"
                                                                                                             alt={
                                                                                                                   item?.title
                                                                                                             }
@@ -514,23 +611,13 @@ const ProductDetail = () => {
                                                                                                 {item.sale_price ? (
                                                                                                       <p>
                                                                                                             <del>
-                                                                                                                  Rs:{" "}
-                                                                                                                  {
-                                                                                                                        item?.price
-                                                                                                                  }
+                                                                                                                  {formatCurrency(item?.price)}
                                                                                                             </del>{" "}
-                                                                                                            Rs:{" "}
-                                                                                                            {
-                                                                                                                  item?.sale_price
-                                                                                                            }
+                                                                                                            {formatCurrency(item?.sale_price)}
                                                                                                       </p>
                                                                                                 ) : item.price ? (
                                                                                                       <p>
-                                                                                                            {" "}
-                                                                                                            Rs:{" "}
-                                                                                                            {
-                                                                                                                  item?.price
-                                                                                                            }
+                                                                                                            {formatCurrency(item?.price)}
                                                                                                       </p>
                                                                                                 ) : (
                                                                                                       ""

@@ -54,24 +54,25 @@ const Category = () => {
 
       return (
             <>
-                  {!loading && (
+                  {!loading && category && (
                         <Helmet>
                               <title>
-                                    {category?.seo_title || category?.title}
+                                    {category?.seo_title || category?.title || "Products"} - Sigma Technologies
                               </title>
                               <link
                                     rel="canonical"
-                                    href={window.location.href}
+                                    href={`https://sigmatechnologies.com.np/product-category/${category?.slug || categoryId}/products`}
                               />
-                              {category.seo_description && (
+                              <meta
+                                    name="description"
+                                    content={
+                                          category?.seo_description ||
+                                          `Explore top-rated ${category?.title || 'heating and water'} solutions from Sigma Technologies Nepal. Certified quality and genuine warranty.`
+                                    }
+                              />
+                              {category?.seo_keyword && (
                                     <meta
-                                          name="description"
-                                          content={category.seo_description}
-                                    />
-                              )}
-                              {category.seo_keyword && (
-                                    <meta
-                                          name="keyword"
+                                          name="keywords"
                                           content={category.seo_keyword}
                                     />
                               )}
@@ -79,13 +80,11 @@ const Category = () => {
                               <meta property="og:type" content="website" />
                               <meta
                                     property="og:title"
-                                    content={
-                                          category?.seo_title || category?.title
-                                    }
+                                    content={category?.seo_title || category?.title}
                               />
                               <meta
                                     property="og:url"
-                                    content={window.location.href}
+                                    content={`https://sigmatechnologies.com.np/product-category/${category?.slug || categoryId}/products`}
                               />
                               {category?.seo_description && (
                                     <meta
@@ -95,12 +94,50 @@ const Category = () => {
                               )}
                               <meta
                                     property="og:site_name"
-                                    content="Sigma Technologies"
+                                    content="Sigma Technologies Pvt. Ltd."
                               />
                               <meta
                                     name="twitter:card"
                                     content="summary_large_image"
                               />
+
+                              {/* CollectionPage & BreadcrumbList Schema */}
+                              <script type="application/ld+json">
+                                    {JSON.stringify({
+                                          "@context": "https://schema.org",
+                                          "@graph": [
+                                                {
+                                                      "@type": "CollectionPage",
+                                                      "name": category?.title || "Products",
+                                                      "description": category?.seo_description || "",
+                                                      "url": `https://sigmatechnologies.com.np/product-category/${category?.slug || categoryId}/products`
+                                                },
+                                                {
+                                                      "@type": "BreadcrumbList",
+                                                      "itemListElement": [
+                                                            {
+                                                                  "@type": "ListItem",
+                                                                  "position": 1,
+                                                                  "name": "Home",
+                                                                  "item": "https://sigmatechnologies.com.np"
+                                                            },
+                                                            {
+                                                                  "@type": "ListItem",
+                                                                  "position": 2,
+                                                                  "name": "Products",
+                                                                  "item": "https://sigmatechnologies.com.np/products"
+                                                            },
+                                                            {
+                                                                  "@type": "ListItem",
+                                                                  "position": 3,
+                                                                  "name": category?.title || "Category",
+                                                                  "item": `https://sigmatechnologies.com.np/product-category/${category?.slug || categoryId}/products`
+                                                            }
+                                                      ]
+                                                }
+                                          ]
+                                    })}
+                              </script>
                         </Helmet>
                   )}
                   <BreadCrumBox

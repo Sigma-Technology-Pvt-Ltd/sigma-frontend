@@ -36,7 +36,7 @@ const CategoryMobileFilter = ({
                                     }}
                               >
                                     <option value="">
-                                          <em>Default Sorting</em>
+                                          Default Sorting
                                     </option>
                                     <option value="asc">
                                           Sort by price: low to high
